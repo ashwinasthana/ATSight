@@ -1,15 +1,13 @@
-from pydantic_settings import BaseSettings
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
 
-class Settings(BaseSettings):
-    openai_api_key: str
-    database_url: str
-    jwt_secret: str
-    jwt_algorithm: str = "HS256"
-    environment: str = "development"
-    
-    class Config:
-        env_file = ".env"
-
+class Settings:
+    openai_api_key = os.getenv("OPENAI_API_KEY", "sk-test-key")
+    database_url = os.getenv("DATABASE_URL", "postgresql://localhost/atsight")
+    jwt_secret = os.getenv("JWT_SECRET", "test-secret")
+    jwt_algorithm = os.getenv("JWT_ALGORITHM", "HS256")
+    environment = os.getenv("ENVIRONMENT", "development")
 
 settings = Settings()
